@@ -150,6 +150,7 @@ export default class User {
     let claims
     try {
       claims = JSON.parse(urlBase64Decode(tokenResponse.access_token.split(".")[1]));
+      this.token.refresh_token = tokenResponse.refresh_token;
       this.token.expires_at = claims.exp * 1000;
     } catch (e) {
       console.error(new Error(`Gotrue-js: Failed to parse tokenResponse claims: ${JSON.stringify(tokenResponse)}`))
