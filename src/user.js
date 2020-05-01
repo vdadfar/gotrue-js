@@ -181,6 +181,14 @@ export default class User {
   }
 
   tokenDetails() {
+    try {
+      if (localStorage.getItem(storageKey)) {
+        let localStorageToken = JSON.parse(localStorage.getItem(storageKey)).token;
+        if (localStorageToken && localStorageToken.expires_at > this.token.expires_at) this.token = localStorageToken;
+      }
+    } catch (e) {
+      console.error(new Error(`Gotrue-js: Failed to parse localStorage claims: ${JSON.stringify(e)}`))
+    }
     return this.token;
   }
 
