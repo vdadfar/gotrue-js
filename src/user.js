@@ -182,7 +182,7 @@ export default class User {
 
   tokenDetails() {
     try {
-      if (localStorage.getItem(storageKey)) {
+      if (isBrowser() && localStorage.getItem(storageKey)) {
         let localStorageToken = JSON.parse(localStorage.getItem(storageKey)).token;
         if (localStorageToken && localStorageToken.expires_at > this.token.expires_at) this.token = localStorageToken;
       }
